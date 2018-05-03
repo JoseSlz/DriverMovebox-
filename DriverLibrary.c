@@ -49,7 +49,7 @@ int initializationDriver(unsigned char *grandeTrame){
         printf("Initialize the driver? [Y(1)/n(0)]: ");
         scanf("%d", &choice);
         if (choice == 1){
-            // Values' actualization on tram
+            // Values' actualization on frame
             grandeTrame[0] = 1;
             grandeTrame[7] = 1;
             printf("Starting SUSI... \n");
@@ -210,7 +210,7 @@ int writeGPIO(unsigned char *grandeTrame, unsigned int *paquet, int choice, unsi
         printf("Data submitted: ");
         printf("0x%02X\n", writedatabuffer[0]);
         j = 0;
-        /** Actualization of OUTPUTS on tram **/
+        /** Actualization of OUTPUTS on frame **/
         grandeTrame[SortiesN + (j++)] = ValidValues[(writedatabuffer[0]>>0) & 0x03];
         grandeTrame[SortiesN + (j++)] = ValidValues[(writedatabuffer[0]>>2) & 0x03];
         grandeTrame[SortiesN + (j++)] = ValidValues[(writedatabuffer[0]>>4) & 0x03];
@@ -552,7 +552,7 @@ int menu(){
     printf("2) Deactivate OUTPUTS.\n");
     printf("3) OUTPUTS to 3rd state.\n");
     printf("4) Select each output individually.\n");
-    printf("5) Update I/O from external tram\n");
+    printf("5) Update I/O from external frame\n");
     printf("6) Show system information.\n");
     printf("7) Leave SUSI.\n\n");
     printf("Your choice: ");
@@ -561,7 +561,7 @@ int menu(){
 }
 
 
-uint8_t buffer2write(int choice, int bank, unsigned char *tramRecu){
+uint8_t buffer2write(int choice, int bank, unsigned char *trameRecu){
     uint8_t buffer[0x100];
     buffer[0] = 0x00;
     int activation;
@@ -662,35 +662,35 @@ uint8_t buffer2write(int choice, int bank, unsigned char *tramRecu){
                 i = 0;
                 switch(bank){
                     case 0:
-                            if(tramRecu[i++]) buffer[0] = buffer[0] | 0x01;
+                            if(trameRecu[i++]) buffer[0] = buffer[0] | 0x01;
                             else buffer[0] = buffer[0] | 0x02;
-                            if(tramRecu[i++]) buffer[0] = buffer[0] | 0x04;
+                            if(trameRecu[i++]) buffer[0] = buffer[0] | 0x04;
                             else buffer[0] = buffer[0] | 0x08;
-                            if(tramRecu[i++]) buffer[0] = buffer[0] | 0x10;
+                            if(trameRecu[i++]) buffer[0] = buffer[0] | 0x10;
                             else buffer[0] = buffer[0] | 0x20;
-                            if(tramRecu[i++]) buffer[0] = buffer[0] | 0x40;
+                            if(trameRecu[i++]) buffer[0] = buffer[0] | 0x40;
                             else buffer[0] = buffer[0] | 0x80;
                             break;
                     case 1:
-                            if(tramRecu[ 4 + i++]) buffer[0] = buffer[0] | 0x01;
+                            if(trameRecu[ 4 + i++]) buffer[0] = buffer[0] | 0x01;
                             else buffer[0] = buffer[0] | 0x02;
-                            if(tramRecu[ 4 + i++]) buffer[0] = buffer[0] | 0x04;
+                            if(trameRecu[ 4 + i++]) buffer[0] = buffer[0] | 0x04;
                             else buffer[0] = buffer[0] | 0x08;
-                            if(tramRecu[ 4 + i++]) buffer[0] = buffer[0] | 0x10;
+                            if(trameRecu[ 4 + i++]) buffer[0] = buffer[0] | 0x10;
                             else buffer[0] = buffer[0] | 0x20;
-                            if(tramRecu[ 4 + i++]) buffer[0] = buffer[0] | 0x40;
+                            if(trameRecu[ 4 + i++]) buffer[0] = buffer[0] | 0x40;
                             else buffer[0] = buffer[0] | 0x80;
                             break;
                     case 2:
-                            if(tramRecu[ 8 + i++]) buffer[0] = buffer[0] | 0x01;
+                            if(trameRecu[ 8 + i++]) buffer[0] = buffer[0] | 0x01;
                             else buffer[0] = buffer[0] | 0x02;
-                            if(tramRecu[ 8 + i++]) buffer[0] = buffer[0] | 0x04;
+                            if(trameRecu[ 8 + i++]) buffer[0] = buffer[0] | 0x04;
                             else buffer[0] = buffer[0] | 0x08;
-                            if(tramRecu[ 8 + i++]) buffer[0] = buffer[0] | 0x10;
+                            if(trameRecu[ 8 + i++]) buffer[0] = buffer[0] | 0x10;
                             else buffer[0] = buffer[0] | 0x00;
-                            if(tramRecu[ 8 + i++]) buffer[0] = buffer[0] | 0x20;
+                            if(trameRecu[ 8 + i++]) buffer[0] = buffer[0] | 0x20;
                             else buffer[0] = buffer[0] | 0x00;
-                            if(tramRecu[ 8 + i++]) buffer[0] = buffer[0] | 0x40;
+                            if(trameRecu[ 8 + i++]) buffer[0] = buffer[0] | 0x40;
                             else buffer[0] = buffer[0] | 0x00;
                             break;
                 }
@@ -793,84 +793,84 @@ char binary2hex(unsigned char *valeur){
     return result;
 }
 
-void FakeTram(unsigned char *fakeTram){
+void FakeTrame(unsigned char *fakeTrame){
     int i;
     for(i = 0; i < NumberOfBits; i++){
-        fakeTram[i] = 0;
+        fakeTrame[i] = 0;
     }
     i = 0;
     /** En-tête **/
     /** Start **/
-    fakeTram[start + i++ ] = 1;
-    fakeTram[start + i++ ] = 0;
-    fakeTram[start + i++ ] = 0;
-    fakeTram[start + i++ ] = 0;
-    fakeTram[start + i++ ] = 0;
-    fakeTram[start + i++ ] = 0;
-    fakeTram[start + i++ ] = 0;
-    fakeTram[start + i++ ] = 1;
+    fakeTrame[start + i++ ] = 1;
+    fakeTrame[start + i++ ] = 0;
+    fakeTrame[start + i++ ] = 0;
+    fakeTrame[start + i++ ] = 0;
+    fakeTrame[start + i++ ] = 0;
+    fakeTrame[start + i++ ] = 0;
+    fakeTrame[start + i++ ] = 0;
+    fakeTrame[start + i++ ] = 1;
     i = 0;
     /** Type **/
-    fakeTram[type + i++ ] = 0;
-    fakeTram[type + i++ ] = 0;
-    fakeTram[type + i++ ] = 0;
-    fakeTram[type + i++ ] = 0;
-    fakeTram[type + i++ ] = 0;
-    fakeTram[type + i++ ] = 0;
-    fakeTram[type + i++ ] = 0;
-    fakeTram[type + i++ ] = 0;
+    fakeTrame[type + i++ ] = 0;
+    fakeTrame[type + i++ ] = 0;
+    fakeTrame[type + i++ ] = 0;
+    fakeTrame[type + i++ ] = 0;
+    fakeTrame[type + i++ ] = 0;
+    fakeTrame[type + i++ ] = 0;
+    fakeTrame[type + i++ ] = 0;
+    fakeTrame[type + i++ ] = 0;
     i = 0;
     /** Size **/
-    dec2bin(&fakeTram[0], CRC, NumberOfBits);
+    dec2bin(&fakeTrame[0], CRC, NumberOfBits);
     /** CRC **/
 
     /** No paquet **/
 
     /** Mode **/
-    fakeTram[version - 1] = 1;
+    fakeTrame[version - 1] = 1;
     /** Version **/
-    fakeTram[SortiesN - 1] = 1;
+    fakeTrame[SortiesN - 1] = 1;
     /** Sorties **/
     i = 0;
     //  ACTIVATION DE SN1 ET SN3
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 1;
-    fakeTram[SortiesN + i++] = 1;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
-    fakeTram[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 1;
+    fakeTrame[SortiesN + i++] = 1;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
+    fakeTrame[SortiesN + i++] = 0;
     /** Entrees **/
     i = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
-    fakeTram[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
+    fakeTrame[EntreesN + i++] = 0;
 }
 
 void crcCalcul(unsigned char *grandeTrame){

@@ -57,7 +57,7 @@ int main(int argc, char *argv[]){
     int connected = 0;
     int choice;
     unsigned char grandeTrame[NumberOfBits];
-    unsigned char tram4test[NumberOfBits];
+    unsigned char frame4test[NumberOfBits];
     unsigned int paquet = 0;
     for(i = 0; i < NumberOfBits ;i++){ // Initialization trame
         grandeTrame[i] = 0;
@@ -68,7 +68,7 @@ int main(int argc, char *argv[]){
         dec2bin(&grandeTrame[0], CRC, NumberOfBits); // Ecriture du nombre des données dans la trame
     	dec2bin(&grandeTrame[0], SortiesN, 1); // Ecriture de la version
         crcCalcul(&grandeTrame[0]); // Calcul du CRC
-        printf("Local tram:\n");
+        printf("Local frame:\n");
         printTrameBinary(&grandeTrame[0]); //Affichage de la trame pour connaitre son structure
         while(connect(socketCreated, (SOCKADDR*)&sin, (socklen_t)recsize)==SOCKET_ERROR){ // On avance pas jusqu'au ce que l'ethernet soit connecté
         }

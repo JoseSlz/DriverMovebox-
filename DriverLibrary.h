@@ -117,10 +117,10 @@ void clearTrame(unsigned char *Trame);
 int menu();
 
 
-uint8_t buffer2write(int choice, int bank, unsigned char *tramRecu);
+uint8_t buffer2write(int choice, int bank, unsigned char *trameRecu);
 
 void dec2bin(unsigned char *grandeTrame, int adresseSuivante, int nombre);
 
-void FakeTram(unsigned char *fakeTram);
+void FakeTrame(unsigned char *fakeTrame);
 
 void crcCalcul(unsigned char *grandeTrame);
