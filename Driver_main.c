@@ -30,11 +30,9 @@ typedef struct in_addr IN_ADDR;
 #include <inttypes.h>
 #include <signal.h>
 
-
 #include "SUSIDriver/Susi4.h"
-
-
 #include "DriverLibrary.h"
+#include "AssistantLibrary.h"
 
 
 
@@ -65,9 +63,7 @@ int main(int argc, char *argv[]){
     /** Beginning **/
     connected = initializationDriver(&grandeTrame[0]);
     if(connected){
-        dec2bin(&grandeTrame[0], CRC, NumberOfBits); // Ecriture du nombre des données dans la trame
-    	dec2bin(&grandeTrame[0], SortiesN, 1); // Ecriture de la version
-        crcCalcul(&grandeTrame[0]); // Calcul du CRC
+        miseAJourEnteteTrame(&grandeTrame[0]);
         printf("Local frame:\n");
         printTrameBinary(&grandeTrame[0]); //Affichage de la trame pour connaitre son structure
         while(connect(socketCreated, (SOCKADDR*)&sin, (socklen_t)recsize)==SOCKET_ERROR){ // On avance pas jusqu'au ce que l'ethernet soit connecté

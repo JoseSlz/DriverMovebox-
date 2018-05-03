@@ -124,3 +124,5 @@ void dec2bin(unsigned char *grandeTrame, int adresseSuivante, int nombre);
 void FakeTrame(unsigned char *fakeTrame);
 
 void crcCalcul(unsigned char *grandeTrame);
+
+void miseAJourEnteteTrame(unsigned char *grandeTrame);
